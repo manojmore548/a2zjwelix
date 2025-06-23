@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2Z Jwelix App - Jewelry Business Management</title>
+    <style>
+        :root {
+            --primary: #d4af37; /* Gold color */
+            --secondary: #333;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --accent: #a67c00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--secondary);
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--dark), #000);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 80px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Screenshots Section */
+        .screenshots {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .screenshot-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .screenshot {
+            min-width: 250px;
+            height: 450px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            scroll-snap-align: start;
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Download Section */
+        .download {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--dark), #000);
+            color: white;
+            text-align: center;
+        }
+        
+        .download h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+        
+        .download p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .download-btn i {
+            font-size: 2rem;
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.3;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .contact-form button:hover {
+            background-color: var(--accent);
+        }
+        
+        /* Privacy Policy Section */
+        .privacy-policy {
+            padding: 80px 0;
+            background-color: var(--light);
+            display: none;
+        }
+        
+        .privacy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .privacy-content h2 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .privacy-content h3 {
+            color: var(--dark);
+            margin: 25px 0 15px;
+        }
+        
+        .privacy-content p {
+            margin-bottom: 15px;
+        }
+        
+        .privacy-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .back-to-home {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark);
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0;
+                padding: 10px 20px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                margin-bottom: 40px;
+            }
+            
+            .step::after {
+                content: '';
+                position: absolute;
+                bottom: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 2px;
+                height: 20px;
+                background-color: var(--primary);
+            }
+            
+            .step:last-child::after {
+                display: none;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="logo.png" alt="A2Z Jwelix Logo">
+                    <h1>A2Z Jwelix</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Features</a></li>
+                    <li><a href="index.html">How It Works</a></li>
+                    <li><a href="index.html">Screenshots</a></li>
+                    <li><a href="index.html">Contact</a></li>
+                    <li><a href="#" id="privacy-link">Privacy Policy</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+<section >
+        <div class="container mt-5">
+            <div class="privacy-content">
+  <h2>Privacy Policy</h2>
+  <p>Last updated: June 23, 2023</p>
+
+  <p>At A2Z Jwelix, we are committed to protecting your privacy. This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information when you use the A2Z Jwelix mobile application (the “Service”).</p>
+
+  <h3>Information Collection and Use</h3>
+  <p>We collect various types of information to provide and improve our services. This may include both personal and usage data.</p>
+
+  <h4>Personal Data</h4>
+  <p>When using our Service, you may be asked to provide personal details that can be used to identify or contact you. This information may include:</p>
+  <ul>
+    <li>Email address</li>
+    <li>First name and last name</li>
+    <li>Phone number</li>
+    <li>Business details (name, address, etc.)</li>
+    <li>Cookies and usage data</li>
+  </ul>
+
+  <h4>Usage Data</h4>
+  <p>We may also collect data on how the Service is accessed and used. This may include information such as your device's IP address, browser type, pages visited, and other diagnostic data.</p>
+
+  <h3>Use of Data</h3>
+  <p>A2Z Jwelix uses the collected data for the following purposes:</p>
+  <ul>
+    <li>To operate and maintain our Service</li>
+    <li>To notify you about changes to our Service</li>
+    <li>To enable interactive features</li>
+    <li>To provide customer support</li>
+    <li>To gather feedback and improve the Service</li>
+    <li>To monitor usage patterns and system performance</li>
+    <li>To detect and address technical issues</li>
+  </ul>
+
+  <h3>Transfer of Data</h3>
+  <p>Your data may be transferred to and stored in systems located outside your jurisdiction. A2Z Jwelix ensures that adequate safeguards are in place to protect your data in accordance with applicable data protection laws.</p>
+
+  <h3>Disclosure of Data</h3>
+  <p>We may disclose personal data in the following cases:</p>
+  <ul>
+    <li>To comply with legal obligations</li>
+    <li>To protect the rights and property of A2Z Jwelix</li>
+    <li>To prevent or investigate potential wrongdoing</li>
+    <li>To ensure the safety of our users or the public</li>
+    <li>To defend against legal claims</li>
+  </ul>
+
+  <h3>Data Security</h3>
+  <p>We value your trust and strive to use commercially acceptable means to protect your personal data. However, no method of electronic transmission or storage is completely secure. We implement appropriate measures to minimize risk.</p>
+
+  <h3>Third-Party Service Providers</h3>
+  <p>We may employ third-party companies to facilitate the Service, provide services on our behalf, or help us analyze usage. These third parties have access to your data only to perform these tasks and are obligated not to disclose or use it for any other purpose.</p>
+
+  <h3>Links to External Sites</h3>
+  <p>Our Service may contain links to other websites not operated by A2Z Jwelix. We are not responsible for the content or privacy practices of these sites and recommend reviewing their privacy policies individually.</p>
+
+  <h3>Children's Privacy</h3>
+  <p>Our Service is not intended for individuals under the age of 18. We do not knowingly collect personal data from children. If you believe we have collected data from a child, please contact us immediately.</p>
+
+  <h3>Changes to This Privacy Policy</h3>
+  <p>A2Z Jwelix reserves the right to update this Privacy Policy at any time. Any changes will be posted on this page, and the “Last Updated” date will be revised accordingly. We encourage you to review this policy periodically.</p>
+
+  <h3>Contact Us</h3>
+  <p>If you have any questions or concerns regarding this Privacy Policy, you may contact us through the following channels:</p>
+  <ul>
+    <!-- <li>Email: privacy@a2zjwelix.com</li> -->
+    <li>Website: <a href="https://www.a2zjwelix.com/contact" target="_blank">www.a2zjwelix.com/contact</a></li>
+    <li>Phone: +91 9404 1302 07</li>
+  </ul>
+
+  <p>Thank you for trusting A2Z Jwelix. Your privacy is our responsibility.</p>
+
+  <a href="#" class="back-to-home" id="back-to-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+</div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>A2Z Jwelix</h3>
+                    <p>The ultimate app for jewelry businesses to digitally manage promotions and pricing updates.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#screenshots">Screenshots</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#" id="footer-privacy-link">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Balikashram Road, Ahilyanagar</li>
+                        <li><i class="fas fa-phone-alt"></i> +91 9404 130-207</li>
+                        <li><i class="fas fa-envelope"></i> support@a2zjwelix.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 A2Z Jwelix. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Privacy Policy Toggle
+        const privacyLink = document.getElementById('privacy-link');
+        const footerPrivacyLink = document.getElementById('footer-privacy-link');
+        const backToHome = document.getElementById('back-to-home');
+        const privacyPolicy = document.getElementById('privacy-policy');
+        const mainContent = document.querySelector('main');
+        
+        function showPrivacyPolicy() {
+            document.querySelectorAll('section:not(#privacy-policy)').forEach(section => {
+                section.style.display = 'none';
+            });
+            privacyPolicy.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        
+        function hidePrivacyPolicy() {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'block';
+            });
+            privacyPolicy.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+        
+        privacyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPrivacyPolicy();
+        });
+        
+        footerPrivacyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPrivacyPolicy();
+        });
+        
+        backToHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            hidePrivacyPolicy();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if(this.getAttribute('id') === 'privacy-link' || 
+                   this.getAttribute('id') === 'footer-privacy-link') {
+                    return;
+                }
+                
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
